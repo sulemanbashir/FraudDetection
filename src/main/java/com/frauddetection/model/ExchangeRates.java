@@ -1,0 +1,91 @@
+package com.frauddetection.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "exchange_rates")
+public class ExchangeRates extends BaseEntity {
+	
+	@Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long id;
+	
+	@Column(name = "exchange_code")
+	private String exchangeCode;
+	
+	@Column(name = "from_curr_code")
+	private String fromCurrencyCode;
+	
+	@Column(name = "to_curr_code")
+	private String toCurrencyCode;
+	
+	@Column(name = "rate")
+	private Double rate;
+
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getExchangeCode() {
+		return exchangeCode;
+	}
+
+	public void setExchangeCode(String exchangeCode) {
+		this.exchangeCode = exchangeCode;
+	}
+
+	public String getFromCurrencyCode() {
+		return fromCurrencyCode;
+	}
+
+	public void setFromCurrencyCode(String fromCurrencyCode) {
+		this.fromCurrencyCode = fromCurrencyCode;
+	}
+
+	public String getToCurrencyCode() {
+		return toCurrencyCode;
+	}
+
+	public void setToCurrencyCode(String toCurrencyCode) {
+		this.toCurrencyCode = toCurrencyCode;
+	}
+
+	public Double getRate() {
+		return rate;
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ExchangeRates [id=");
+		builder.append(id);
+		builder.append(", exchangeCode=");
+		builder.append(exchangeCode);
+		builder.append(", fromCurrencyCode=");
+		builder.append(fromCurrencyCode);
+		builder.append(", toCurrencyCode=");
+		builder.append(toCurrencyCode);
+		builder.append(", rate=");
+		builder.append(rate);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
+
+}
