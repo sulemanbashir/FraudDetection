@@ -12,27 +12,27 @@ import javax.persistence.Table;
 public class FraudScoreLevel extends BaseEntity {
 
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
-	
+	private Long id;
+
 	@Column(name = "score_lvl")
 	private String scoreLevel;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "min_range")
 	private Double minimunRange;
-	
+
 	@Column(name = "max_range")
 	private Double maximumRange;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

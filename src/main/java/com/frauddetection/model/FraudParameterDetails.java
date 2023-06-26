@@ -11,9 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.frauddetection.validation.BasicInfoValidator;
-import com.frauddetection.validation.TerminalThreadScoreValidator;
-
+import com.frauddetection.validation.groups.BasicInfoValidator;
+import com.frauddetection.validation.groups.TerminalThreadScoreValidator;
 
 @Entity
 @Table(name = "fraud_param_details")
@@ -22,7 +21,7 @@ public class FraudParameterDetails extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "merchant", referencedColumnName = "name")
@@ -46,7 +45,7 @@ public class FraudParameterDetails extends BaseEntity {
 
 	@Column(name = "f_param")
 	private String fraudRuleName;
-	
+
 	@Column(name = "f_score")
 	private Double fraudScore;
 
@@ -68,22 +67,22 @@ public class FraudParameterDetails extends BaseEntity {
 
 	@Column(name = "time_window")
 	private Integer timeWindow;
-	
+
 	@Column(name = "exchange_code")
 	private String exchangeCode;
-	
+
 	@Column(name = "to_curr_code")
 	private String toCurrCode;
-	
+
 	@NotBlank(groups = BasicInfoValidator.class)
 	@Column(name = "actual_criteria_value")
 	private String actualCriteriaValue;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -93,14 +92,6 @@ public class FraudParameterDetails extends BaseEntity {
 
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
-	}
-
-	public FraudParameterApi getfraudParameterApi() {
-		return fraudParameterApi;
-	}
-
-	public void setfraudParameterApi(FraudParameterApi fraudParameterApi) {
-		this.fraudParameterApi = fraudParameterApi;
 	}
 
 	public Entities getEntity() {
@@ -214,7 +205,7 @@ public class FraudParameterDetails extends BaseEntity {
 	public void setActualCriteriaValue(String actualCriteriaValue) {
 		this.actualCriteriaValue = actualCriteriaValue;
 	}
-	
+
 	public String getFraudRuleName() {
 		return fraudRuleName;
 	}
@@ -257,7 +248,5 @@ public class FraudParameterDetails extends BaseEntity {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
+
 }

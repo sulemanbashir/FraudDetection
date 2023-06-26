@@ -9,28 +9,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "b_fraud_entities")
 public class Entities extends BaseEntity {
-	
+
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
-	
+	private Long id;
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "datatype_id", referencedColumnName = "id")
 	private DataType datatype;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -3,7 +3,7 @@ package com.frauddetection.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-import com.frauddetection.validation.TerminalThreadScoreValidator;
+import com.frauddetection.validation.groups.TerminalThreadScoreValidator;
 
 public class TransactionInfo {
 
@@ -12,7 +12,7 @@ public class TransactionInfo {
 	@NotEmpty
 	private String terminalId;
 	@NotEmpty
-	private String merchand;
+	private String merchant;
 	@NotBlank(groups = TerminalThreadScoreValidator.class)
 	private String terminalThreatScore;
 	private String city;
@@ -41,12 +41,12 @@ public class TransactionInfo {
 		this.terminalId = terminalId;
 	}
 
-	public String getMerchand() {
-		return merchand;
+	public String getMerchant() {
+		return merchant;
 	}
 
-	public void setMerchand(String merchand) {
-		this.merchand = merchand;
+	public void setMerchant(String merchant) {
+		this.merchant = merchant;
 	}
 
 	public String getTerminalThreatScore() {
@@ -64,7 +64,5 @@ public class TransactionInfo {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
-	
 
 }

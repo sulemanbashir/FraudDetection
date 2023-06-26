@@ -36,7 +36,7 @@ public class FraudValidatorTest {
 	}
 
 	@Test
-	public void terminalScoreValidation_whenNotConfiguredInFraudRuleDefination() {
+	public void terminalScoreValidation_whenNotConfiguredInFraudRuleDefinition() {
 
 		FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
 		fraudParameterDetails.setTerminalThreadThreshold(null);

@@ -12,36 +12,35 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "fraud_param_fact")
 public class FraudParameterFact extends BaseEntity {
-	
-	
+
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
-	
+	private Long id;
+
 	@Column(name = "f_entity_id")
-	private long fraudEntityId;
-	
+	private Long fraudEntityId;
+
 	@Column(name = "f_entity_value")
 	private String fraudEntityValue;
-	
+
 	@Column(name = "f_param")
 	private String fraudParameter;
-	
+
 	@Column(name = "f_param_value")
 	private String fraudParameterValue;
-	
+
 	@Column(name = "start_dtime")
 	private Instant startDateTime;
-	
+
 	@Column(name = "is_unique")
 	private Character isUnique;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

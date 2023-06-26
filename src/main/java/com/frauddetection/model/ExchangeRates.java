@@ -10,30 +10,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "exchange_rates")
 public class ExchangeRates extends BaseEntity {
-	
+
 	@Id
-	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
-	
+	private Long id;
+
 	@Column(name = "exchange_code")
 	private String exchangeCode;
-	
+
 	@Column(name = "from_curr_code")
 	private String fromCurrencyCode;
-	
+
 	@Column(name = "to_curr_code")
 	private String toCurrencyCode;
-	
+
 	@Column(name = "rate")
 	private Double rate;
 
-	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -85,7 +84,5 @@ public class ExchangeRates extends BaseEntity {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 
 }

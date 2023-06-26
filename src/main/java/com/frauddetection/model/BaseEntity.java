@@ -12,29 +12,30 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @MappedSuperclass
-public class BaseEntity implements Externalizable{
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class BaseEntity implements Externalizable {
 
-    @Column(updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
-    
-    
+	@Column(updatable = false)
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
-	
+
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
-	
+
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
@@ -42,14 +43,13 @@ public class BaseEntity implements Externalizable{
 	@Override
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput out) throws IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
-    
-    
+
 }

@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.jboss.logging.Logger;
+
 public interface CommonUtils {
-	
+
+	Logger log = Logger.getLogger(CommonUtils.class);
+
 	public static List<String> getTokenizedStringData(String record, String delimeter) {
 
 		StringTokenizer singleRecordTokenizer = null;
 		String tokenizedData = null;
 		List<String> validatorIdList = new ArrayList<String>();
 		try {
-		    singleRecordTokenizer = new StringTokenizer(record, delimeter, false);
+			singleRecordTokenizer = new StringTokenizer(record, delimeter, false);
 
 			while (singleRecordTokenizer.hasMoreTokens()) {
 				tokenizedData = singleRecordTokenizer.nextToken();
@@ -21,7 +25,7 @@ public interface CommonUtils {
 				}
 			}
 		} catch (Exception ex) {
-			//LGR.warn("##Exception## while performing tokenization of record:- " + ex);
+			log.warn("##Exception## while performing tokenization of record:- " + ex);
 		}
 		return validatorIdList;
 	}

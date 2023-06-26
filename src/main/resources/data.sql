@@ -1,28 +1,28 @@
-INSERT INTO merchant (name,created_at) VALUES ('KFC','2022-12-31 23.59.59'),('5Star','2022-12-31 23.59.59');
+INSERT INTO merchant (name,created_at) VALUES ('KFC',CURRENT_TIMESTAMP()),('5Star',CURRENT_TIMESTAMP());
 
 
 INSERT INTO b_operator (name,description ,created_at) VALUES 
-('Equals','Can be used to check two entities are equal','2022-12-31 23.59.59'),
-('Not Equals','Can be used to check two entities are not equal','2022-12-31 23.59.59'),
-('Greater Than','Can be used to check two entities are greater than other','2022-12-31 23.59.59'),
-('Greater Than or Equals To','Can be used to check two entities are greater than or equals to','2022-12-31 23.59.59'),
-('In','Can be used to check if actual value exist in expected value','2022-12-31 23.59.59'),
-('Not In','Can be used to check if actual value is notexist in expected value','2022-12-31 23.59.59'),
-('Between','Can be used to check two entities are between','2022-12-31 23.59.59'),
-('Not Between','Can be used to check two entities are not between','2022-12-31 23.59.59'),
-('Like','Can be used to check two entities are like','2022-12-31 23.59.59');
+('Equals','Can be used to check two entities are equal',CURRENT_TIMESTAMP()),
+('Not Equals','Can be used to check two entities are not equal',CURRENT_TIMESTAMP()),
+('Greater Than','Can be used to check two entities are greater than other',CURRENT_TIMESTAMP()),
+('Greater Than or Equals To','Can be used to check two entities are greater than or equals to',CURRENT_TIMESTAMP()),
+('In','Can be used to check if actual value exist in expected value',CURRENT_TIMESTAMP()),
+('Not In','Can be used to check if actual value is notexist in expected value',CURRENT_TIMESTAMP()),
+('Between','Can be used to check two entities are between',CURRENT_TIMESTAMP()),
+('Not Between','Can be used to check two entities are not between',CURRENT_TIMESTAMP()),
+('Like','Can be used to check two entities are like',CURRENT_TIMESTAMP());
 
 
 INSERT INTO b_datatypes (name,description ,created_at) VALUES 
-('Integer','Integer','2022-12-31 23.59.59'),
-('Double','Double','2022-12-31 23.59.59'),
-('String','String','2022-12-31 23.59.59'),
-('Time','Time','2022-12-31 23.59.59'),
-('Date','Date','2022-12-31 23.59.59');
+('Integer','Integer', CURRENT_TIMESTAMP()),
+('Double','Double',CURRENT_TIMESTAMP()),
+('String','String',CURRENT_TIMESTAMP()),
+('Time','Time',CURRENT_TIMESTAMP()),
+('Date','Date',CURRENT_TIMESTAMP());
 
 
 INSERT INTO b_fraud_entities (name,description ,datatype_id) VALUES 
-('Amount','Transaction Amount',2),
+('amount','Transaction Amount',2),
 ('city','City',3),
 ('terminalId','TerminalId',3);
 

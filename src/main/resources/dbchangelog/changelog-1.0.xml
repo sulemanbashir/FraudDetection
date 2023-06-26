@@ -71,8 +71,6 @@
             <column autoIncrement="true" name="id" type="BIGINT">
             <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
-            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
             <column name="f_param" type="VARCHAR(255)"/>
             <column name="merchant"  type="VARCHAR(255)"/>
             <column name="f_param_api_id"  type="BIGINT"/>
@@ -89,6 +87,8 @@
             <column name="operator_id" type="BIGINT"/>
             <column name="exchange_code" type="VARCHAR(255)"/>
             <column name="to_curr_code" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
         </createTable>
         
         <addUniqueConstraint
@@ -104,12 +104,12 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
-            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
             <column name="name" type="VARCHAR(255)">
              	<constraints nullable="false" unique="true" uniqueConstraintName="name_ix3"/>
             </column>
             <column name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
         </createTable>
     </changeSet>
     
@@ -118,13 +118,13 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
-            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
             <column name="f_type_code" type="VARCHAR(3)">
              	<constraints nullable="false" unique="true" uniqueConstraintName="f_type_code_ix1"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
-             <column name="description" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
         </createTable>
     </changeSet>
     
@@ -133,12 +133,12 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
-            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
             <column name="f_type_code" type="VARCHAR(3)"/>
             <column name="name" type="VARCHAR(255)"/>
             <column name="description" type="VARCHAR(255)"/>
             <column name="class_detail" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
         </createTable>
     </changeSet>
     
@@ -147,13 +147,13 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
-            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
             <column name="unit_code" type="VARCHAR(3)">
              	<constraints nullable="false" unique="true" uniqueConstraintName="unit_code_ix1"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
             <column name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
         </createTable>
     </changeSet>
     
@@ -162,12 +162,12 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
-            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
             <column name="score_lvl" type="CHARACTER(1)"/>
             <column name="name" type="VARCHAR(255)"/>
             <column name="min_range" type="VARCHAR(255)"/>
-             <column name="max_range" type="DECIMAL(12, 2)"/>
+            <column name="max_range" type="DECIMAL(12, 2)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
         </createTable>
     </changeSet>
     
@@ -176,14 +176,14 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
-            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
             <column name="f_entity_id" type="BIGINT"/>
             <column name="f_entity_value" type="VARCHAR(255)"/>
             <column name="f_param" type="VARCHAR(255)"/>
             <column name="f_param_value" type="VARCHAR(255)"/>
             <column name="start_dtime" type="datetime"/>
             <column name="is_unique" type="CHARACTER(1)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
         </createTable>
     </changeSet>
     
