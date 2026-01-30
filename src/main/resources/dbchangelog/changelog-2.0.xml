@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+  http://www.liquibase.org/xml/ns/pro
+  http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <!--
+    =====================================================
+    REFACTORING TO USE NATURAL KEYS INSTEAD OF SURROGATE IDS
+    =====================================================
+
+    MOTIVATION:
+    - Remove redundant ID columns from lookup tables
+    - Use meaningful natural keys (name, code) as primary keys
+    - Improve code readability and database portability
+    - Follow existing pattern (unit, merchant already use natural keys)
+
+    AFFECTED TABLES:
+    1. b_operator: name → PRIMARY KEY
+    2. b_datatypes: name → PRIMARY KEY
+    3. b_fraud_entities: name → PRIMARY KEY
+    4. b_fraud_type: f_type_code → PRIMARY KEY (already done, but removing id)
+    5. b_unit: unit_code → PRIMARY KEY (already done, but removing id)
+    -->
+
+    <!-- ========================================
+         STEP 1: Drop existing foreign key constraints that reference IDs
+         ======================================== -->
+
+    <changeSet author="suleman" id="20260130-1">
+        <dropForeignKeyConstraint baseTableName="fraud_param_details" constraintName="fk_operator"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-2">
+        <dropForeignKeyConstraint baseTableName="fraud_param_details" constraintName="fk_f_entity_id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-3">
+        <dropForeignKeyConstraint baseTableName="b_fraud_entities" constraintName="fk_datatype"/>
+    </changeSet>
+
+    <!-- ========================================
+         STEP 2: Add new columns with natural key references
+         ======================================== -->
+
+    <changeSet author="suleman" id="20260130-4">
+        <addColumn tableName="fraud_param_details">
+            <column name="operator_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <comment>Add operator_name column to replace operator_id</comment>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-5">
+        <addColumn tableName="fraud_param_details">
+            <column name="entity_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <comment>Add entity_name column to replace f_entity_id</comment>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-6">
+        <addColumn tableName="b_fraud_entities">
+            <column name="datatype_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <comment>Add datatype_name column to replace datatype_id</comment>
+    </changeSet>
+
+    <!-- ========================================
+         STEP 3: Migrate data from ID columns to name columns
+         ======================================== -->
+
+    <changeSet author="suleman" id="20260130-7">
+        <sql>
+            UPDATE fraud_param_details fpd
+            SET fpd.operator_name = (SELECT o.name FROM b_operator o WHERE o.id = fpd.operator_id)
+            WHERE fpd.operator_id IS NOT NULL
+        </sql>
+        <comment>Migrate operator_id to operator_name</comment>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-8">
+        <sql>
+            UPDATE fraud_param_details fpd
+            SET fpd.entity_name = (SELECT e.name FROM b_fraud_entities e WHERE e.id = fpd.f_entity_id)
+            WHERE fpd.f_entity_id IS NOT NULL
+        </sql>
+        <comment>Migrate f_entity_id to entity_name</comment>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-9">
+        <sql>
+            UPDATE b_fraud_entities e
+            SET e.datatype_name = (SELECT d.name FROM b_datatypes d WHERE d.id = e.datatype_id)
+            WHERE e.datatype_id IS NOT NULL
+        </sql>
+        <comment>Migrate datatype_id to datatype_name</comment>
+    </changeSet>
+
+    <!-- ========================================
+         STEP 4: Make name columns NOT NULL
+         ======================================== -->
+
+    <changeSet author="suleman" id="20260130-10">
+        <addNotNullConstraint tableName="fraud_param_details" columnName="operator_name" columnDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-11">
+        <addNotNullConstraint tableName="fraud_param_details" columnName="entity_name" columnDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-12">
+        <addNotNullConstraint tableName="b_fraud_entities" columnName="datatype_name" columnDataType="VARCHAR(255)"/>
+    </changeSet>
+
+    <!-- ========================================
+         STEP 5: Drop old ID-based foreign key columns and indexes
+         ======================================== -->
+
+    <changeSet author="suleman" id="20260130-13">
+        <dropIndex tableName="fraud_param_details" indexName="fk_operator"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-14">
+        <dropColumn tableName="fraud_param_details" columnName="operator_id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-15">
+        <dropColumn tableName="fraud_param_details" columnName="f_entity_id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-16">
+        <dropColumn tableName="b_fraud_entities" columnName="datatype_id"/>
+    </changeSet>
+
+    <!-- ========================================
+         STEP 6: Convert name columns to PRIMARY KEYS in lookup tables
+         ======================================== -->
+
+    <!-- For b_operator: name becomes PRIMARY KEY -->
+    <changeSet author="suleman" id="20260130-17">
+        <dropPrimaryKey tableName="b_operator" constraintName="PRIMARY"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-18">
+        <dropColumn tableName="b_operator" columnName="id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-19">
+        <addPrimaryKey tableName="b_operator" columnNames="name" constraintName="pk_operator_name"/>
+    </changeSet>
+
+    <!-- For b_datatypes: name becomes PRIMARY KEY -->
+    <changeSet author="suleman" id="20260130-20">
+        <dropPrimaryKey tableName="b_datatypes" constraintName="PRIMARY"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-21">
+        <dropColumn tableName="b_datatypes" columnName="id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-22">
+        <addPrimaryKey tableName="b_datatypes" columnNames="name" constraintName="pk_datatypes_name"/>
+    </changeSet>
+
+    <!-- For b_fraud_entities: name becomes PRIMARY KEY -->
+    <changeSet author="suleman" id="20260130-23">
+        <dropPrimaryKey tableName="b_fraud_entities" constraintName="PRIMARY"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-24">
+        <dropColumn tableName="b_fraud_entities" columnName="id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-25">
+        <addPrimaryKey tableName="b_fraud_entities" columnNames="name" constraintName="pk_entities_name"/>
+    </changeSet>
+
+    <!-- For b_fraud_type: f_type_code becomes PRIMARY KEY (remove id) -->
+    <changeSet author="suleman" id="20260130-26">
+        <dropPrimaryKey tableName="b_fraud_type" constraintName="PRIMARY"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-27">
+        <dropColumn tableName="b_fraud_type" columnName="id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-28">
+        <addPrimaryKey tableName="b_fraud_type" columnNames="f_type_code" constraintName="pk_fraud_type_code"/>
+    </changeSet>
+
+    <!-- For b_unit: unit_code becomes PRIMARY KEY (remove id) -->
+    <changeSet author="suleman" id="20260130-29">
+        <dropPrimaryKey tableName="b_unit" constraintName="PRIMARY"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-30">
+        <dropColumn tableName="b_unit" columnName="id"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-31">
+        <addPrimaryKey tableName="b_unit" columnNames="unit_code" constraintName="pk_unit_code"/>
+    </changeSet>
+
+    <!-- ========================================
+         STEP 7: Create new foreign key constraints with natural keys
+         ======================================== -->
+
+    <changeSet author="suleman" id="20260130-32">
+        <addForeignKeyConstraint
+                baseTableName="fraud_param_details"
+                baseColumnNames="operator_name"
+                constraintName="fk_operator_name"
+                referencedTableName="b_operator"
+                referencedColumnNames="name"
+                onDelete="RESTRICT"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-33">
+        <addForeignKeyConstraint
+                baseTableName="fraud_param_details"
+                baseColumnNames="entity_name"
+                constraintName="fk_entity_name"
+                referencedTableName="b_fraud_entities"
+                referencedColumnNames="name"
+                onDelete="RESTRICT"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-34">
+        <addForeignKeyConstraint
+                baseTableName="b_fraud_entities"
+                baseColumnNames="datatype_name"
+                constraintName="fk_datatype_name"
+                referencedTableName="b_datatypes"
+                referencedColumnNames="name"
+                onDelete="RESTRICT"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <!-- ========================================
+         STEP 8: Create indexes on natural key foreign keys for performance
+         ======================================== -->
+
+    <changeSet author="suleman" id="20260130-35">
+        <createIndex tableName="fraud_param_details" indexName="idx_operator_name">
+            <column name="operator_name"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-36">
+        <createIndex tableName="fraud_param_details" indexName="idx_entity_name">
+            <column name="entity_name"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="suleman" id="20260130-37">
+        <createIndex tableName="b_fraud_entities" indexName="idx_datatype_name">
+            <column name="datatype_name"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

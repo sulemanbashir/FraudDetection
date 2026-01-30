@@ -7,11 +7,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class Config implements WebMvcConfigurer {
-	@Autowired
-	RequestListener requestListener;
+    @Autowired
+    RequestListener requestListener;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(requestListener);
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(requestListener);
+    }
 }

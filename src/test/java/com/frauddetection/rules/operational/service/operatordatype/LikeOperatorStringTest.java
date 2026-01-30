@@ -13,34 +13,34 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class LikeOperatorStringTest {
 
-	@InjectMocks
+    @InjectMocks
     LikeOperatorString likeOperatorString;
 
 
-	@Test
-	public void likeOperatorString_whenOperand1ContainsOperand2() {
+    @Test
+    public void likeOperatorString_whenOperand1ContainsOperand2() {
 
-		boolean result;
-		try {
-			result = likeOperatorString.applyOperation("1234455", "44");
-			Assertions.assertEquals(true, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = likeOperatorString.applyOperation("1234455", "44");
+            Assertions.assertEquals(true, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	public void likeOperatorString_whenOperand1NotContainsOperand2() {
+    @Test
+    public void likeOperatorString_whenOperand1NotContainsOperand2() {
 
-		boolean result;
-		try {
-			result = likeOperatorString.applyOperation("223366", "44");
-			Assertions.assertEquals(false, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = likeOperatorString.applyOperation("223366", "44");
+            Assertions.assertEquals(false, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 }

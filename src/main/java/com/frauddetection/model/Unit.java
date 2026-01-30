@@ -11,64 +11,64 @@ import javax.persistence.Table;
 @Table(name = "b_unit")
 public class Unit extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-	@Column(name = "unit_code")
-	private String unitCode;
+    @Column(name = "unit_code")
+    private String unitCode;
 
-	@Column(name = "name")
-	private String name;
+    @Column(name = "name")
+    private String name;
 
-	@Column(name = "description")
-	private String description;
+    @Column(name = "description")
+    private String description;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getUnitCode() {
-		return unitCode;
-	}
+    public String getUnitCode() {
+        return unitCode;
+    }
 
-	public void setUnitCode(String unitCode) {
-		this.unitCode = unitCode;
-	}
+    public void setUnitCode(String unitCode) {
+        this.unitCode = unitCode;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Unit [id=");
-		builder.append(id);
-		builder.append(", unitCode=");
-		builder.append(unitCode);
-		builder.append(", name=");
-		builder.append(name);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append("]");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Unit [id=");
+        builder.append(id);
+        builder.append(", unitCode=");
+        builder.append(unitCode);
+        builder.append(", name=");
+        builder.append(name);
+        builder.append(", description=");
+        builder.append(description);
+        builder.append("]");
+        return builder.toString();
+    }
 }

@@ -18,38 +18,38 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseEntity implements Externalizable {
 
-	@Column(updatable = false)
-	@CreationTimestamp
-	private LocalDateTime createdAt;
-	@UpdateTimestamp
-	private LocalDateTime updatedAt;
+    @Column(updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		// TODO Auto-generated method stub
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		// TODO Auto-generated method stub
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
 }

@@ -8,5 +8,5 @@ import com.frauddetection.model.ExchangeRates;
 @Repository
 public interface ExchangeRatesRepository extends JpaRepository<ExchangeRates, Long> {
 
-	public ExchangeRates findByExchangeCodeAndFromCurrencyCodeAndToCurrencyCode(String exhangeCode, String fromCurrencyCode, String toCurrencyCode);
+    public ExchangeRates findByExchangeCodeAndFromCurrencyCodeAndToCurrencyCode(String exhangeCode, String fromCurrencyCode, String toCurrencyCode);
 }

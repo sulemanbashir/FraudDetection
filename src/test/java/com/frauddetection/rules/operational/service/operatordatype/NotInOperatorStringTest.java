@@ -11,36 +11,36 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class NotInOperatorStringTest  {
+public class NotInOperatorStringTest {
 
-	@InjectMocks
+    @InjectMocks
     NotInOperatorString notInOperatorString;
 
 
-	@Test
-	public void notInOperatorString_whenOperand1NotExisitInOperand2() {
+    @Test
+    public void notInOperatorString_whenOperand1NotExisitInOperand2() {
 
-		boolean result;
-		try {
-			result = notInOperatorString.applyOperation("44", "33,,66,55");
-			Assertions.assertEquals(true, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = notInOperatorString.applyOperation("44", "33,,66,55");
+            Assertions.assertEquals(true, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	public void notInOperatorString_whenOperand1ExisitInOperand2() {
+    @Test
+    public void notInOperatorString_whenOperand1ExisitInOperand2() {
 
-		boolean result;
-		try {
-			result = notInOperatorString.applyOperation("44", "33,44,66,55");
-			Assertions.assertEquals(false, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = notInOperatorString.applyOperation("44", "33,44,66,55");
+            Assertions.assertEquals(false, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 }

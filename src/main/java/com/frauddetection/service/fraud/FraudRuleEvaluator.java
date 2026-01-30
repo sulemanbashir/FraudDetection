@@ -1,4 +1,4 @@
-package com.frauddetection.service;
+package com.frauddetection.service.fraud;
 
 import java.text.ParseException;
 
@@ -12,6 +12,6 @@ import com.frauddetection.dto.TransactionInfo;
 @Component
 public interface FraudRuleEvaluator {
 
-	public ResponseInfo applyFraudRules(TransactionInfo transactionInfo, FraudParameterDetails fraudRule) throws ParseException, InvalidInfoException;
+    ResponseInfo applyFraudRules(TransactionInfo transactionInfo, FraudParameterDetails fraudRule) throws ParseException, InvalidInfoException;
 
 }

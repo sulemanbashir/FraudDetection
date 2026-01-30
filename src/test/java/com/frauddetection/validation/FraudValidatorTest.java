@@ -16,59 +16,59 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class FraudValidatorTest {
 
-	@Spy
-	Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    @Spy
+    Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-	@InjectMocks
-	@Resource
-	FraudValidator fraudValidator;
+    @InjectMocks
+    @Resource
+    FraudValidator fraudValidator;
 
-	@Test
-	public void terminalScoreValidation_whenNotGivenInRequest() {
+    @Test
+    public void terminalScoreValidation_whenNotGivenInRequest() {
 
-		FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
-		fraudParameterDetails.setTerminalThreadThreshold(40);
-		TransactionInfo transactionInfo = new TransactionInfo();
-		transactionInfo.setTerminalThreatScore(null);
-		boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
-		Assertions.assertEquals(true, result);
+        FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
+        fraudParameterDetails.setTerminalThreadThreshold(40);
+        TransactionInfo transactionInfo = new TransactionInfo();
+        transactionInfo.setTerminalThreatScore(null);
+        boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
+        Assertions.assertEquals(true, result);
 
-	}
+    }
 
-	@Test
-	public void terminalScoreValidation_whenNotConfiguredInFraudRuleDefinition() {
+    @Test
+    public void terminalScoreValidation_whenNotConfiguredInFraudRuleDefinition() {
 
-		FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
-		fraudParameterDetails.setTerminalThreadThreshold(null);
-		TransactionInfo transactionInfo = new TransactionInfo();
-		transactionInfo.setTerminalThreatScore("50");
-		boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
-		Assertions.assertEquals(true, result);
+        FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
+        fraudParameterDetails.setTerminalThreadThreshold(null);
+        TransactionInfo transactionInfo = new TransactionInfo();
+        transactionInfo.setTerminalThreatScore("50");
+        boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
+        Assertions.assertEquals(true, result);
 
-	}
+    }
 
-	@Test
-	public void terminalScoreValidation_whenConfiguredThresholdExceedByRequestThreadScore() {
+    @Test
+    public void terminalScoreValidation_whenConfiguredThresholdExceedByRequestThreadScore() {
 
-		FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
-		fraudParameterDetails.setTerminalThreadThreshold(40);
-		TransactionInfo transactionInfo = new TransactionInfo();
-		transactionInfo.setTerminalThreatScore("50");
-		boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
-		Assertions.assertEquals(true, result);
+        FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
+        fraudParameterDetails.setTerminalThreadThreshold(40);
+        TransactionInfo transactionInfo = new TransactionInfo();
+        transactionInfo.setTerminalThreatScore("50");
+        boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
+        Assertions.assertEquals(true, result);
 
-	}
+    }
 
-	@Test
-	public void terminalScoreValidation_whenConfiguredThresholdNotExceedByRequestThreadScore() {
+    @Test
+    public void terminalScoreValidation_whenConfiguredThresholdNotExceedByRequestThreadScore() {
 
-		FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
-		fraudParameterDetails.setTerminalThreadThreshold(40);
-		TransactionInfo transactionInfo = new TransactionInfo();
-		transactionInfo.setTerminalThreatScore("30");
-		boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
-		Assertions.assertEquals(false, result);
+        FraudParameterDetails fraudParameterDetails = new FraudParameterDetails();
+        fraudParameterDetails.setTerminalThreadThreshold(40);
+        TransactionInfo transactionInfo = new TransactionInfo();
+        transactionInfo.setTerminalThreatScore("30");
+        boolean result = fraudValidator.validateFraudScore(fraudParameterDetails, transactionInfo);
+        Assertions.assertEquals(false, result);
 
-	}
+    }
 
 }

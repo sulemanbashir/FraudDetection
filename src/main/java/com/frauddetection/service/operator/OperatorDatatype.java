@@ -1,4 +1,4 @@
-package com.frauddetection.service.operationalfraud;
+package com.frauddetection.service.operator;
 
 import java.text.ParseException;
 
@@ -8,7 +8,6 @@ import com.frauddetection.exception.InvalidInfoException;
 
 @Component
 public interface OperatorDatatype {
-
-	boolean applyOperation(String operand1, String operand2) throws ParseException, InvalidInfoException;
+    boolean applyOperation(String operand1, String operand2) throws ParseException, InvalidInfoException;
 
 }

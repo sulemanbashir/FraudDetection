@@ -6,5 +6,5 @@ import com.frauddetection.model.FraudScoreLevel;
 
 public interface FraudScoreLevelRepository extends JpaRepository<FraudScoreLevel, Long> {
 
-	public FraudScoreLevel findByScoreLevel(String exhangeCode);
+    public FraudScoreLevel findByScoreLevel(String exhangeCode);
 }

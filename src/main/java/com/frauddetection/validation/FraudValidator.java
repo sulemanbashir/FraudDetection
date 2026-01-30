@@ -18,27 +18,27 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class FraudValidator {
 
-	@Autowired
-	private Validator validator;
+    @Autowired
+    private Validator validator;
 
-	public boolean validateFraudScore(FraudParameterDetails fraudParameterDetails, TransactionInfo transactionInfo) {
+    public boolean validateFraudScore(FraudParameterDetails fraudParameterDetails, TransactionInfo transactionInfo) {
 
-		log.info("Going to validate terminal thread score");
-		Set<ConstraintViolation<FraudParameterDetails>> definedTerminalScoreValidation = validator.validate(fraudParameterDetails, TerminalThreadScoreValidator.class);
+        log.info("Going to validate terminal thread score");
+        Set<ConstraintViolation<FraudParameterDetails>> definedTerminalScoreValidation = validator.validate(fraudParameterDetails, TerminalThreadScoreValidator.class);
 
-		Set<ConstraintViolation<TransactionInfo>> requestTerminalScoreValidation = validator.validate(transactionInfo, TerminalThreadScoreValidator.class);
+        Set<ConstraintViolation<TransactionInfo>> requestTerminalScoreValidation = validator.validate(transactionInfo, TerminalThreadScoreValidator.class);
 
-		if (!definedTerminalScoreValidation.isEmpty() || !requestTerminalScoreValidation.isEmpty()) {
-			log.info("Returning true because no thread score found in request or fraud rule");
-			return true;
-		}
+        if (!definedTerminalScoreValidation.isEmpty() || !requestTerminalScoreValidation.isEmpty()) {
+            log.info("Returning true because no thread score found in request or fraud rule");
+            return true;
+        }
 
-		if (definedTerminalScoreValidation.isEmpty() && requestTerminalScoreValidation.isEmpty() && Integer.parseInt(transactionInfo.getTerminalThreatScore()) >= fraudParameterDetails.getTerminalThreadThreshold()) {
-			log.info("Returning true because rule thread score threshold exceed");
-			return true;
-		}
-		log.info("Returning false because no need to evaluate fraud rule as the threshold limit not exceed!");
-		return false;
-	}
+        if (definedTerminalScoreValidation.isEmpty() && requestTerminalScoreValidation.isEmpty() && Integer.parseInt(transactionInfo.getTerminalThreatScore()) >= fraudParameterDetails.getTerminalThreadThreshold()) {
+            log.info("Returning true because rule thread score threshold exceed");
+            return true;
+        }
+        log.info("Returning false because no need to evaluate fraud rule as the threshold limit not exceed!");
+        return false;
+    }
 
 }

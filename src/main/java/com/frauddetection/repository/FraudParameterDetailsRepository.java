@@ -9,7 +9,7 @@ import com.frauddetection.model.FraudParameterDetails;
 
 public interface FraudParameterDetailsRepository extends JpaRepository<FraudParameterDetails, Long> {
 
-	List<FraudParameterDetails> findByMerchantName(String name);
+    List<FraudParameterDetails> findByMerchantName(String name);
 
-	Optional<FraudParameterDetails> findByMerchantNameAndFraudRuleName(String name, String fname);
+    Optional<FraudParameterDetails> findByMerchantNameAndFraudRuleName(String name, String fname);
 }

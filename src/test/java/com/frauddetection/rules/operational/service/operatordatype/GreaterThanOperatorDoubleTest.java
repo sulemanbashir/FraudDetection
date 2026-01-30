@@ -13,34 +13,34 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class GreaterThanOperatorDoubleTest {
 
-	@InjectMocks
+    @InjectMocks
     GreaterThanOperatorDouble greaterThanOperatorDouble;
 
 
-	@Test
-	public void greaterThanOperatorDoubleTest_whenOperand1GreaterThanOperand2() {
+    @Test
+    public void greaterThanOperatorDoubleTest_whenOperand1GreaterThanOperand2() {
 
-		boolean result;
-		try {
-			result = greaterThanOperatorDouble.applyOperation("44", "33");
-			Assertions.assertEquals(true, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = greaterThanOperatorDouble.applyOperation("44", "33");
+            Assertions.assertEquals(true, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	public void greaterThanOperatorDoubleTest_whenOperand1NotGreaterThanOperand2() {
+    @Test
+    public void greaterThanOperatorDoubleTest_whenOperand1NotGreaterThanOperand2() {
 
-		boolean result;
-		try {
-			result = greaterThanOperatorDouble.applyOperation("33", "55");
-			Assertions.assertEquals(false, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = greaterThanOperatorDouble.applyOperation("33", "55");
+            Assertions.assertEquals(false, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 }

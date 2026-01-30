@@ -13,34 +13,34 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class EqualOperatorStringTest {
 
-	@InjectMocks
+    @InjectMocks
     EqualOperatorString equalOperatorString;
 
 
-	@Test
-	public void equalOperatorTest_whenBothOperandAreEqual() {
+    @Test
+    public void equalOperatorTest_whenBothOperandAreEqual() {
 
-		boolean result;
-		try {
-			result = equalOperatorString.applyOperation("abc", "abc");
-			Assertions.assertEquals(true, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = equalOperatorString.applyOperation("abc", "abc");
+            Assertions.assertEquals(true, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	@Test
-	public void equalOperatorTest_whenBothOperandAreNotEqual() {
+    @Test
+    public void equalOperatorTest_whenBothOperandAreNotEqual() {
 
-		boolean result;
-		try {
-			result = equalOperatorString.applyOperation("abc3", "abc");
-			Assertions.assertEquals(false, result);
-		} catch (ParseException | InvalidInfoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        boolean result;
+        try {
+            result = equalOperatorString.applyOperation("abc3", "abc");
+            Assertions.assertEquals(false, result);
+        } catch (ParseException | InvalidInfoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -19,22 +19,22 @@ import com.frauddetection.validation.groups.OperationalFraudRuleUpdateValidation
 @Component
 public class OperationalRuleValidator {
 
-	@Autowired
-	private Validator validator;
+    @Autowired
+    private Validator validator;
 
-	public ResponseInfo validateInsertOperationalRuleDto(FraudParameterDetailsDto fraudParameterDetailsDto) {
-		Set<ConstraintViolation<FraudParameterDetailsDto>> validation = validator.validate(fraudParameterDetailsDto, OperationalFraudRuleInsertValidation.class);
-		return addViolations(validation);
-	}
+    public ResponseInfo validateInsertOperationalRuleDto(FraudParameterDetailsDto fraudParameterDetailsDto) {
+        Set<ConstraintViolation<FraudParameterDetailsDto>> validation = validator.validate(fraudParameterDetailsDto, OperationalFraudRuleInsertValidation.class);
+        return addViolations(validation);
+    }
 
-	public ResponseInfo validateUpdateOperationalRuleDto(FraudParameterDetailsDto fraudParameterDetailsDto) {
-		Set<ConstraintViolation<FraudParameterDetailsDto>> validation = validator.validate(fraudParameterDetailsDto, OperationalFraudRuleUpdateValidation.class);
-		return addViolations(validation);
-	}
+    public ResponseInfo validateUpdateOperationalRuleDto(FraudParameterDetailsDto fraudParameterDetailsDto) {
+        Set<ConstraintViolation<FraudParameterDetailsDto>> validation = validator.validate(fraudParameterDetailsDto, OperationalFraudRuleUpdateValidation.class);
+        return addViolations(validation);
+    }
 
-	private ResponseInfo addViolations(Set<ConstraintViolation<FraudParameterDetailsDto>> validation) {
-		ResponseInfo responseInfo = new ResponseInfo("Bad Request", new ViolationErrorResponse());
-		responseInfo.getViolationErrorResponse().getViolations().addAll(validation.stream().map(v -> new ViolationDto(v.getPropertyPath().toString(), v.getMessage())).collect(Collectors.toList()));
-		return responseInfo;
-	}
+    private ResponseInfo addViolations(Set<ConstraintViolation<FraudParameterDetailsDto>> validation) {
+        ResponseInfo responseInfo = new ResponseInfo("Bad Request", new ViolationErrorResponse());
+        responseInfo.getViolationErrorResponse().getViolations().addAll(validation.stream().map(v -> new ViolationDto(v.getPropertyPath().toString(), v.getMessage())).collect(Collectors.toList()));
+        return responseInfo;
+    }
 }
