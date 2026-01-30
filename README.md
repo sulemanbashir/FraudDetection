@@ -1,12 +1,16 @@
 # Fraud Detection Service
 
+A rule-based fraud detection system built with Spring Boot, featuring SOLID principles, dependency injection, and type-safe ENUM-based architecture.
+
 ## Tools and Technology
 
-- SpringBoot
+- Java 17
+- Spring Boot 2.7.18
 - H2 In-Memory Database
-- LiquiBase
+- LiquiBase (Database migrations)
 - Log4j2
-- Postman
+- Lombok 1.18.30
+- Maven
 
 ## API Endpoints
 
@@ -23,13 +27,13 @@ Evaluate Fraud on Requested Transaction by Applying Fraud Rules
       "amount":600,
       "currency":"EUR",
       "terminalId" : "123",
-      "merchand" : "KFC",
+      "merchant" : "KFC",
       "terminalThreatScore" : "80"
     }
     ~~~
 
 **Response**
-- ``200 OK``: a JSON response is returned containing fraud evaluation result.
+- ``200 OK``: JSON response is returned containing fraud evaluation result.
   ~~~json
     {
       "status": "H",
@@ -78,7 +82,7 @@ Add Fraud Rules in Database
 
 **[POST]** [http://localhost:8080/operationalrules/updateFraudRule]
 
-Updare Fraud Rules Details from Database
+Update Fraud Rules Details from Database
 
 - Request must use ``content-type: application/json``
 - The [POST] request example is mentioned below:
