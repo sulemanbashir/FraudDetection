@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+  http://www.liquibase.org/xml/ns/pro 
+  http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet author="suleman" id="20220829-1">
+        <createTable tableName="merchant">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="merchant_name_ix1"/>
+            </column>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-2">
+        <createTable tableName="b_operator">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="name_ix1"/>
+            </column>
+            <column defaultValueComputed="NULL" name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-3">
+        <createTable tableName="b_fraud_entities">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="name_ix2"/>
+            </column>
+            <column defaultValueComputed="NULL" name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="datatype_id" type="BIGINT"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-4">
+        <createTable tableName="exchange_rates">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+            <column name="exchange_code" type="VARCHAR(255)"/>
+            <column name="from_curr_code" type="VARCHAR(255)"/>
+            <column name="to_curr_code" type="VARCHAR(255)"/>
+            <column name="rate" type="DECIMAL(12, 2)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="suleman" id="20220829-5">
+        <createTable tableName="fraud_param_details">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fraud_rule_name" type="VARCHAR(255)"/>
+            <column name="merchant" type="VARCHAR(255)"/>
+            <column name="f_param_api_id" type="BIGINT"/>
+            <column name="fraud_entity_id" type="BIGINT"/>
+            <column name="fraud_score" type="BIGINT"/>
+            <column name="terminal_threat_threshold" type="BIGINT"/>
+            <column name="actual_criteria_value" type="VARCHAR(255)"/>
+            <column name="fraud_criteria_value1" type="VARCHAR(255)"/>
+            <column name="fraud_criteria_value2" type="VARCHAR(255)"/>
+            <column name="src_entity_table" type="VARCHAR(255)"/>
+            <column name="src_entity_column" type="VARCHAR(255)"/>
+            <column name="time_window" type="BIGINT"/>
+            <column name="unit" type="CHARACTER(1)"/>
+            <column name="operator_id" type="BIGINT"/>
+            <column name="exchange_code" type="VARCHAR(255)"/>
+            <column name="to_curr_code" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+
+        <addUniqueConstraint
+                columnNames="fraud_rule_name, merchant"
+                constraintName="fraud_rule_name_merchant_unique"
+                tableName="fraud_param_details"
+        />
+    </changeSet>
+
+
+    <changeSet author="suleman" id="20220829-6">
+        <createTable tableName="b_datatypes">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="name_ix3"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-7">
+        <createTable tableName="b_fraud_type">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="f_type_code" type="VARCHAR(3)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="f_type_code_ix1"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-8">
+        <createTable tableName="b_fraud_param_api">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="f_type_code" type="VARCHAR(3)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="class_detail" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-9">
+        <createTable tableName="b_unit">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="unit_code" type="VARCHAR(3)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="unit_code_ix1"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-10">
+        <createTable tableName="fraud_score_level">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="score_lvl" type="CHARACTER(1)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="min_range" type="VARCHAR(255)"/>
+            <column name="max_range" type="DECIMAL(12, 2)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-11">
+        <createTable tableName="fraud_param_fact">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="f_entity_id" type="BIGINT"/>
+            <column name="f_entity_value" type="VARCHAR(255)"/>
+            <column name="f_param" type="VARCHAR(255)"/>
+            <column name="f_param_value" type="VARCHAR(255)"/>
+            <column name="start_dtime" type="datetime"/>
+            <column name="is_unique" type="CHARACTER(1)"/>
+            <column defaultValueComputed="NULL" name="created_at" type="datetime"/>
+            <column defaultValueComputed="NULL" name="updated_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="suleman" id="20220829-12">
+        <createIndex indexName="fk_unit" tableName="fraud_param_details">
+            <column defaultValueComputed="NULL" name="unit"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="suleman" id="20220829-13">
+        <createIndex indexName="fk_operator" tableName="fraud_param_details">
+            <column defaultValueComputed="NULL" name="operator_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="suleman" id="20220829-14">
+        <createIndex indexName="fk_f_param_api_id" tableName="fraud_param_details">
+            <column defaultValueComputed="NULL" name="f_param_api_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-15">
+        <addForeignKeyConstraint baseColumnNames="f_param_api_id" baseTableName="fraud_param_details"
+                                 constraintName="fk_f_param_api_id" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="b_fraud_param_api" validate="true"/>
+    </changeSet>
+
+    <changeSet author="suleman" id="20220829-16">
+        <addForeignKeyConstraint baseColumnNames="unit" baseTableName="fraud_param_details" constraintName="fk_unit"
+                                 onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="unit_code"
+                                 referencedTableName="b_unit" validate="true"/>
+    </changeSet>
+    <changeSet author="suleman" id="20220829-17">
+        <addForeignKeyConstraint baseColumnNames="operator_id" baseTableName="fraud_param_details"
+                                 constraintName="fk_operator" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="b_operator" validate="true"/>
+    </changeSet>
+    <changeSet author="suleman" id="20220829-18">
+        <addForeignKeyConstraint baseColumnNames="merchant" baseTableName="fraud_param_details"
+                                 constraintName="fk_merchant" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="name" referencedTableName="merchant" validate="true"/>
+    </changeSet>
+    <changeSet author="suleman" id="20220829-19">
+        <addForeignKeyConstraint baseColumnNames="fraud_entity_id" baseTableName="fraud_param_details"
+                                 constraintName="fk_fraud_entity_id" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="b_fraud_entities" validate="true"/>
+    </changeSet>
+    <changeSet author="suleman" id="20220829-20">
+        <addForeignKeyConstraint baseColumnNames="datatype_id" baseTableName="b_fraud_entities"
+                                 constraintName="fk_datatype" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="id" referencedTableName="b_datatypes" validate="true"/>
+    </changeSet>
+    <changeSet author="suleman" id="20220829-21">
+        <addForeignKeyConstraint baseColumnNames="f_type_code" baseTableName="b_fraud_param_api"
+                                 constraintName="fk_f_type_code" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="f_type_code" referencedTableName="b_fraud_type"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog> 
