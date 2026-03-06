@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Log4J2 Logging Configurations -->
+<Configuration>
+    <Properties>
+        <Property name="logsFolder">frauddetectionlogs</Property>
+        <property name="logsBackupFolder">backup</property>
+        <property name="logsBackupPattern">yyyy-MM-dd</property>
+        <property name="logsFilePattern">yyyy-MM-dd-HH-mm</property>
+        <property name="pattern">[%d{MMM dd, yyyy HH:mm:ss,SSS}][%p][%t][%c{1}][%X{transactionId}] - %m%n%ex</property>
+        <Property name="logStashPattern">
+            [%d{ISO8601}][%-5p][%-25c]%notEmpty{[%X{pipeline.id}]}%notEmpty{[%X{plugin.id}]} %m%n]
+        </Property>
+
+
+        <Property name="root">root.log</Property>
+        <Property name="frauddetection">frauddetection.log</Property>
+        <Property name="operationalfraud">operationalfraud.log</Property>
+        <Property name="fraudscoreevaluator">fraudscoreevaluator.log</Property>
+        <Property name="rolloverInterval">1</Property>
+
+    </Properties>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+
+        <RollingFile name="appender-root"
+                     fileName="${logsFolder}/${root}" append="true" immediateFlush="false"
+                     bufferSize="1048576"
+                     filePattern="${logsFolder}/${logsBackupFolder}/%d{${logsBackupPattern}}/${root}-%d{${logsFilePattern}}.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy
+                        interval="${rolloverInterval}" modulate="true"/>
+            </Policies>
+
+
+        </RollingFile>
+
+        <RollingFile name="appender-frauddetection"
+                     fileName="${logsFolder}/${frauddetection}" append="true"
+                     immediateFlush="false" bufferSize="1048576"
+                     filePattern="${logsFolder}/${logsBackupFolder}/%d{${logsBackupPattern}}/${frauddetection}-%d{${logsFilePattern}}.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy
+                        interval="${rolloverInterval}" modulate="true"/>
+            </Policies>
+
+        </RollingFile>
+
+        <RollingFile name="appender-operationalfraud"
+                     fileName="${logsFolder}/${operationalfraud}" append="true"
+                     immediateFlush="false" bufferSize="1048576"
+                     filePattern="${logsFolder}/${logsBackupFolder}/%d{${logsBackupPattern}}/${operationalfraud}-%d{${logsFilePattern}}.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy
+                        interval="${rolloverInterval}" modulate="true"/>
+            </Policies>
+
+        </RollingFile>
+
+        <RollingFile name="appender-fraudscoreevaluator"
+                     fileName="${logsFolder}/${fraudscoreevaluator}" append="true"
+                     immediateFlush="false" bufferSize="1048576"
+                     filePattern="${logsFolder}/${logsBackupFolder}/%d{${logsBackupPattern}}/${fraudscoreevaluator}-%d{${logsFilePattern}}.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy
+                        interval="${rolloverInterval}" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+
+        <Async name="Root" includeLocation="false">
+            <AppenderRef ref="appender-root"/>
+        </Async>
+
+        <Async name="Frauddetection" includeLocation="false">
+            <AppenderRef ref="appender-frauddetection"/>
+        </Async>
+
+        <Async name="Operationalfraud" includeLocation="false">
+            <AppenderRef ref="appender-operationalfraud"/>
+        </Async>
+
+        <Async name="Fraudscoreevaluator" includeLocation="false">
+            <AppenderRef ref="appender-fraudscoreevaluator"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+
+
+        <asyncLogger name="com.sofypay.frauddetection.rules.operational" additivity="false" includeLocation="false">
+            <AppenderRef ref="Operationalfraud"/>
+        </asyncLogger>
+
+        <asyncLogger name="com.sofypay.frauddetection" additivity="false" includeLocation="false">
+            <AppenderRef ref="Frauddetection"/>
+        </asyncLogger>
+
+        <asyncLogger name="com.frauddetection.service.FraudScoreEvaluatorService" additivity="false"
+                     includeLocation="false">
+            <AppenderRef ref="Fraudscoreevaluator"/>
+        </asyncLogger>
+
+        <Root>
+            <AppenderRef ref="Root"/>
+            <AppenderRef ref="console"/>
+        </Root>
+
+
+    </Loggers>
+</Configuration>

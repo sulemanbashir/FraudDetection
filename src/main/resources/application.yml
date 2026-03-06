@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: frauddetection
+
+logging:
+  level:
+    root: INFO
+
+fraud-detection:
+  score-levels:
+    - code: L
+      name: Low
+      min-range: 0
+      max-range: 39
+    - code: M
+      name: Medium
+      min-range: 40
+      max-range: 59
+    - code: H
+      name: High
+      min-range: 60
+      max-range: 100
+
+  exchange-rates:
+    - exchange-code: ABC
+      from-currency: EUR
+      to-currency: USD
+      rate: 22.3
+
+  rules:
+    - name: MaxTransAmount
+      merchant: KFC
+      fraud-type: OPERATIONAL
+      entity-type: amount
+      operator-type: GREATER_THAN
+      fraud-score: 40
+      terminal-threat-threshold: 61
+      threshold-value: "500"
+      exchange-code: ABC
+      to-currency-code: USD
+    - name: ValidTerminalIds
+      merchant: KFC
+      fraud-type: OPERATIONAL
+      entity-type: terminalId
+      operator-type: NOT_IN
+      fraud-score: 50
+      terminal-threat-threshold: 50
+      threshold-value: "123,456,333"
